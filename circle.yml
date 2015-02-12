@@ -11,3 +11,6 @@ test:
     - 'rvm-exec 2.1.2 bundle exec rake'
     - 'rvm-exec 2.2.0 bundle exec rake'
 
+deploy:
+  master:
+    - 'rvm-exec 2.1.2 bundle exec rake release'
