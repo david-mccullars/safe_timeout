@@ -13,4 +13,6 @@ test:
 
 deploy:
   master:
-    - 'rvm-exec 2.1.2 bundle exec rake release'
+    branch: master
+    commands:
+      - 'rvm-exec 2.1.2 bundle exec rake release'
