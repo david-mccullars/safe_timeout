@@ -10,9 +10,3 @@ test:
     - 'rvm-exec 1.9.3 bundle exec rake'
     - 'rvm-exec 2.1.2 bundle exec rake'
     - 'rvm-exec 2.2.0 bundle exec rake'
-
-deployment:
-  master:
-    branch: master
-    commands:
-      - 'rvm-exec 2.1.2 bundle exec rake release'

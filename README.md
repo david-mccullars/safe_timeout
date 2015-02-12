@@ -2,6 +2,8 @@
 
 A safer alternative to Ruby's Timeout that uses unix processes instead of threads
 
+[![Circle CI](https://circleci.com/gh/david-mccullars/safe_timeout/tree/master.svg?style=svg)](https://circleci.com/gh/david-mccullars/safe_timeout/tree/master)
+
 ## Installation
 
 Add this line to your application's Gemfile:
