@@ -7,8 +7,8 @@ module SafeTimeout
 
   def self.timeout(sec, klass=nil, &block)
     InterruptingChildProcess.new(
-      timeout: sec,
-      on_timeout: ->(_) { raise(klass || Timeout::Error) },
+      :timeout => sec,
+      :on_timeout => lambda { |_| raise(klass || Timeout::Error) }
     ).start(&block)
   end
 

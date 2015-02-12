@@ -1,9 +1,9 @@
 module SafeTimeout
   class InterruptingChildProcess
 
-    def initialize(timeout:, on_timeout:)
-      @expiration = Time.now.to_f + timeout
-      @on_timeout = on_timeout
+    def initialize(options={})
+      @expiration = Time.now.to_f + options.fetch(:timeout)
+      @on_timeout = options.fetch(:on_timeout)
     end
 
     def start(&block)
