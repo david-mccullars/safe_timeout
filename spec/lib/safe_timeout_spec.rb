@@ -6,7 +6,7 @@ describe SafeTimeout do
     it 'should process its block' do
       result = nil
       expect do
-        result = SafeTimeout.timeout(100) { :success }
+        result = SafeTimeout.timeout(5) { :success }
       end.to_not raise_error
       expect(result).to eq(:success)
     end
@@ -21,7 +21,7 @@ describe SafeTimeout do
 
     it 'should not leave orphaned child process' do
       child = fork do
-        SafeTimeout.timeout(100) { sleep 100 }
+        SafeTimeout.timeout(5) { sleep 5 }
       end
       :loop until grand_child = all_processes[child].first
       expect(grand_child).to be > child
