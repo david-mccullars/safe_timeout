@@ -8,10 +8,13 @@ module SafeTimeout
 
     def start(&block)
       Signal.trap("TRAP", &@on_timeout)
-      Kernel.fork { wait_for_expiration }
+      @child_pid = Kernel.fork { wait_for_expiration }
       yield
     ensure
-      stop rescue nil
+      begin
+        stop
+      rescue Errno::ESRCH
+      end
     end
 
     def stop
