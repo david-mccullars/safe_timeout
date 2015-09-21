@@ -1,43 +1,25 @@
 module SafeTimeout
   class InterruptingChildProcess
 
-    def initialize(options={})
-      @expiration = Time.now.to_f + options.fetch(:timeout)
-      @on_timeout = options.fetch(:on_timeout)
+    def initialize(ppid, expiration)
+      @ppid = ppid.to_i
+      @expiration = expiration.to_f
+
+      abort "Invalid pid to monitor: #{@ppid}" if @ppid == 0
+      abort "Invalid expiration: #{@expiration}" if @expiration == 0.0
     end
 
-    def start(&block)
-      Signal.trap("TRAP", &@on_timeout)
-      @child_pid = Kernel.fork { wait_for_expiration }
-      yield
-    ensure
-      begin
-        stop
-      rescue Errno::ESRCH
-      end
+    def notify_parent_of_expiration
+      SafeTimeout.send_signal('TRAP', @ppid)
     end
 
-    def stop
-      # Tell that child to stop interrupting!
-      Process.kill("HUP", @child_pid)
-    end
+    def wait_for_timeout
+      Signal.trap('HUP') { exit 0 }
 
-    def wait_for_expiration
-      Signal.trap("HUP") { exit 0 }
+      sleep [@expiration - Time.now.to_f, 0.1].max
 
-      # If the parent dies unexpectedly and the child is never told to
-      # stop, it becomes an orphan and is given to the init process (1)
-      # or worse yet it becomes a zombie with parent 0. In either case,
-      # stop interrupting!
-      while Process.ppid > 1
-        sleep 0.1
-        if Time.now.to_f > @expiration
-          Process.kill("TRAP", Process.ppid)
-          return
-        end
-      end
+      notify_parent_of_expiration
     end
 
   end
-
 end

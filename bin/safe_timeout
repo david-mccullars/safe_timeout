@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require 'safe_timeout'
+SafeTimeout::InterruptingChildProcess.new(*ARGV).wait_for_timeout
