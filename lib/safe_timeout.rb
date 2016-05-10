@@ -1,3 +1,5 @@
+require 'timeout'
+
 #
 # Ruby's Timeout is broken and highly dangerous. To avoid this risk we instead
 # use a child process to handle the timeout. We fork it and let it issue a SIGINT
