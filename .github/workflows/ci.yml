@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['1.8.7', '1.9.3', '2.1.2', '2.2.0', '3.0']
+        ruby-version: ['2.6', '2.7', '3.0']
 
     steps:
     - uses: actions/checkout@v2
@@ -29,6 +29,7 @@ jobs:
     - name: Rubocop
       run: bundle exec rubocop
     - name: Send coverage to Code Climate
+      if: ${{ matrix.ruby-version == '3.0' }}
       uses: paambaati/codeclimate-action@v3.0.0
       env:
         CC_TEST_REPORTER_ID: 79c39bac6840a990e7dfd0950f282b08c1be9fb15e17718af730e524cf631855
