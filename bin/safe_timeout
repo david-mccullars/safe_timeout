@@ -1,3 +1,11 @@
 #!/usr/bin/env ruby
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.command_name("#{Process.ppid}:#{Process.pid}")
+  SimpleCov.formatter = Class.new(SimpleCov::Formatter::HTMLFormatter) do
+    def output_message(_ignored); end
+  end
+  SimpleCov.start
+end
 require 'safe_timeout'
 SafeTimeout::InterruptingChildProcess.new(*ARGV).wait_for_timeout

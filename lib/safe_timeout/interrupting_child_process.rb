@@ -1,11 +1,11 @@
 module SafeTimeout
   class InterruptingChildProcess
 
-    def initialize(ppid, expiration)
-      @ppid = ppid.to_i
+    def initialize(expiration)
+      @ppid = Process.ppid
       @expiration = expiration.to_f
 
-      abort "Invalid pid to monitor: #{@ppid}" if @ppid.zero?
+      abort "Invalid pid to monitor: #{@ppid}" if @ppid.to_i.zero?
       abort "Invalid expiration: #{@expiration}" unless @expiration > 0.0
     end
 
