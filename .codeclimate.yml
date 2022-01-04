@@ -1,0 +1,29 @@
+---
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - c
+      - ruby
+    checks:
+      Similar code:
+        enabled: false
+  fixme:
+    enabled: true
+  flog:
+    enabled: true
+    config:
+      score_threshold: 20.0
+  rubocop:
+    enabled: true
+    exclude_fingerprints:
+    - 4218049e28199ed950d3cd721df86dce
+    - c8179d0de3a9df18a2c45750d3f8647e
+    - 03f6eee11d86507da564695007106721
+    channel: rubocop-1-23-0
+ratings:
+  paths:
+  - "**.rb"
+exclude_paths:
+- spec/
