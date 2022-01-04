@@ -1,12 +1,13 @@
+require 'English'
 module SafeTimeout
   class Spawner
 
-    def initialize(options={})
+    def initialize(options = {})
       @expiration = Time.now.to_f + options.fetch(:timeout)
       @on_timeout = options.fetch(:on_timeout)
     end
 
-    def start(&block)
+    def start
       original = Signal.trap('TRAP', &@on_timeout) || 'DEFAULT'
       spawn_interrupter
       yield
@@ -24,7 +25,7 @@ module SafeTimeout
       # Create a light-weight child process to notify this process if it is
       # taking too long
       bin = Gem.bin_path('safe_timeout', 'safe_timeout')
-      @child_pid = Process.spawn(bin, $$.to_s, @expiration.to_s)
+      @child_pid = Process.spawn(bin, $PROCESS_ID.to_s, @expiration.to_s)
       Process.detach(@child_pid)
     end
 

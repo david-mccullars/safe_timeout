@@ -5,8 +5,8 @@ module SafeTimeout
       @ppid = ppid.to_i
       @expiration = expiration.to_f
 
-      abort "Invalid pid to monitor: #{@ppid}" if @ppid == 0
-      abort "Invalid expiration: #{@expiration}" if @expiration == 0.0
+      abort "Invalid pid to monitor: #{@ppid}" if @ppid.zero?
+      abort "Invalid expiration: #{@expiration}" unless @expiration > 0.0
     end
 
     def notify_parent_of_expiration

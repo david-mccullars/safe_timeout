@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe SafeTimeout do
   context '.timeout' do
-
     it 'should process its block' do
       result = nil
       expect do
@@ -23,22 +22,21 @@ describe SafeTimeout do
       child = fork do
         SafeTimeout.timeout(5) { sleep 5 }
       end
-      :loop until grand_child = all_processes[child].first
+      :loop until (grand_child = all_processes[child].first)
       expect(grand_child).to be > child
 
       Process.kill('TERM', child)
-      expect(is_process_still_running? grand_child).to be false
+      expect(is_process_still_running?(grand_child)).to be false
     end
 
     private
 
     # Returns a hash of all running processes and their children
     def all_processes
-      `ps -eo pid,ppid`.lines.reduce(Hash.new []) do |hash, line|
+      `ps -eo pid,ppid`.lines.each_with_object(Hash.new([])) do |line, hash|
         pid, ppid = line.split.map(&:to_i)
         hash[ppid] = [] unless hash.key?(ppid)
         hash[ppid] << pid
-        hash
       end
     end
 
@@ -55,6 +53,5 @@ describe SafeTimeout do
       end
       true
     end
-
   end
 end
