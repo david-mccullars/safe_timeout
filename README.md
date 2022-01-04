@@ -1,8 +1,23 @@
 # SafeTimeout
 
+* README:         https://github.com/david-mccullars/safe_timeout
+* Documentation:  http://www.rubydoc.info/github/david-mccullars/safe_timeout
+* Bug Reports:    https://github.com/david-mccullars/safe_timeout/issues
+
+
+## Status
+
+[![Gem Version](https://badge.fury.io/rb/safe_timeout.svg)](https://badge.fury.io/rb/safe_timeout)
+[![Build Status](https://github.com/david-mccullars/safe_timeout/workflows/CI/badge.svg)](https://github.com/david-mccullars/safe_timeout/actions?workflow=CI)
+[![Code Climate](https://codeclimate.com/github/david-mccullars/safe_timeout/badges/gpa.svg)](https://codeclimate.com/github/david-mccullars/safe_timeout)
+[![Test Coverage](https://codeclimate.com/github/david-mccullars/safe_timeout/badges/coverage.svg)](https://codeclimate.com/github/david-mccullars/safe_timeout/coverage)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+
+## Description
+
 A safer alternative to Ruby's Timeout that uses unix processes instead of threads
 
-[![Circle CI](https://circleci.com/gh/david-mccullars/safe_timeout/tree/master.svg?style=svg)](https://circleci.com/gh/david-mccullars/safe_timeout/tree/master)
 
 ## Installation
 
@@ -41,10 +56,7 @@ could add the following to the top of an application:
 
     Timeout = SafeTimeout
 
-## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/safe_timeout/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+## License
+
+MIT. See the {file:LICENSE} file.
